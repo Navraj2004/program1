@@ -1,0 +1,241 @@
+🔹 PART 1: Build & Run Java App Using MAVEN
+✅ STEP 0: Install Java JDK 21
+Download from:
+https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html
+
+Install it.
+
+Check Java installation:
+
+bash
+Copy
+Edit
+java -version
+✅ Output should look like:
+
+nginx
+Copy
+Edit
+java version "21.0.x"
+✅ STEP 1: Install Maven
+Download from:
+👉 https://maven.apache.org/download.cgi
+
+Choose ✅ apache-maven-3.9.6-bin.zip
+❌ Don’t download .tar.gz or src.zip
+
+Extract ZIP to:
+
+bash
+Copy
+Edit
+C:\Program Files\Apache\Maven\apache-maven-3.9.6
+✅ STEP 2: Set Environment Variables for Maven
+Open Command Prompt as Administrator and run:
+
+bash
+Copy
+Edit
+setx MAVEN_HOME "C:\Program Files\Apache\Maven\apache-maven-3.9.6" /M
+bash
+Copy
+Edit
+setx PATH "%PATH%;C:\Program Files\Apache\Maven\apache-maven-3.9.6\bin" /M
+🔁 Restart Command Prompt and check installation:
+
+bash
+Copy
+Edit
+mvn -v
+✅ Output should look like:
+
+yaml
+Copy
+Edit
+Apache Maven 3.9.6
+Java version: 21.x.x
+✅ STEP 3: Create a Maven Project
+Run this command:
+
+bash
+Copy
+Edit
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+It generates a folder called demo-project/ with this structure:
+
+swift
+Copy
+Edit
+demo-project/
+├── pom.xml
+└── src/
+    ├── main/java/com/example/App.java
+    └── test/java/com/example/AppTest.java
+✅ STEP 4: Add a Dependency (Gson)
+Go to project folder:
+
+bash
+Copy
+Edit
+cd demo-project
+Open pom.xml and inside <dependencies> tag, add:
+
+xml
+Copy
+Edit
+<dependency>
+  <groupId>com.google.code.gson</groupId>
+  <artifactId>gson</artifactId>
+  <version>2.10.1</version>
+</dependency>
+✅ You can now use Gson in your Java code.
+
+✅ STEP 5: Build the Maven Project
+Run each command:
+
+bash
+Copy
+Edit
+mvn compile
+➡️ Compiles your source code
+
+bash
+Copy
+Edit
+mvn test
+➡️ Runs unit tests
+
+bash
+Copy
+Edit
+mvn package
+➡️ Builds a JAR file in target/ directory:
+
+bash
+Copy
+Edit
+target/demo-project-1.0-SNAPSHOT.jar
+✅ STEP 6: Run the JAR File
+Ensure App.java has a main() method. Then run:
+
+bash
+Copy
+Edit
+java -cp target/demo-project-1.0-SNAPSHOT.jar com.example.App
+🎉 Done! You've built and run a Java project with Maven.
+
+🔹 PART 2: Migrate to Gradle
+✅ STEP 1: Delete Maven File
+Go inside demo-project/:
+
+🗑️ Delete:
+
+pgsql
+Copy
+Edit
+pom.xml
+✅ Keep src/ folder (don’t delete it)
+
+✅ STEP 2: Install Gradle
+Go to:
+👉 https://gradle.org/releases/
+
+Download: ✅ gradle-8.x-bin.zip
+
+Extract to:
+
+makefile
+Copy
+Edit
+C:\Gradle\gradle-8.x.x
+✅ STEP 3: Set Environment Variables for Gradle
+Open Command Prompt (Admin) and run:
+
+bash
+Copy
+Edit
+setx GRADLE_HOME "C:\Gradle\gradle-8.x.x" /M
+bash
+Copy
+Edit
+setx PATH "%PATH%;%GRADLE_HOME%\bin" /M
+🔁 Restart Command Prompt.
+
+Check installation:
+
+bash
+Copy
+Edit
+gradle -v
+✅ You should see:
+
+nginx
+Copy
+Edit
+Gradle 8.x.x
+✅ STEP 4: Create Gradle Files
+Inside demo-project/, create two files:
+
+📄 1. build.gradle
+groovy
+Copy
+Edit
+plugins {
+    id 'java'
+}
+
+group = 'com.example'
+version = '1.0-SNAPSHOT'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+}
+
+// Optional: if you face version issues
+java {
+    sourceCompatibility = JavaVersion.VERSION_17
+    targetCompatibility = JavaVersion.VERSION_17
+}
+📄 2. settings.gradle
+groovy
+Copy
+Edit
+rootProject.name = 'demo-project'
+✅ Now your folder structure should look like:
+
+swift
+Copy
+Edit
+demo-project/
+├── build.gradle
+├── settings.gradle
+└── src/
+    ├── main/java/com/example/App.java
+    └── test/java/com/example/AppTest.java
+✅ STEP 5: Build the Project Using Gradle
+In Command Prompt:
+
+bash
+Copy
+Edit
+cd demo-project
+Build and test:
+
+bash
+Copy
+Edit
+gradle build
+bash
+Copy
+Edit
+gradle test
+Run your program:
+
+bash
+Copy
+Edit
+java -cp build/libs/demo-project-1.0-SNAPSHOT.jar com.example.App
