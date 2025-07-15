@@ -1,0 +1,48 @@
+
+Git installed on your computer
+GitHub account created
+Internet connection
+🔧 Step 1: Open Git Bash
+After installation, open Git Bash from your start menu or desktop shortcut.
+
+⚙ Step 2: Configure Git (Global Settings)
+Run these commands in Git Bash to set up your identity:
+git config --global user.name "APPAJIB07"
+git config --global user.email "1by22cs026@bmsit.in"
+git config --global credential.helper manager
+
+🌐 Step 3: Create Repository on GitHub
+Make sure you've created the repository at:
+🔗 https://github.com/APPAJIB07/programs-1-.git
+
+📥 Step 4: Clone Repository
+In Git Bash, run these commands:
+git clone https://github.com/APPAJIB07/programs-1-.git
+cd programs-1-
+
+📝 Step 5: Create Your First File
+Create a file with the first line:
+echo "This is line 1 in notes.txt" > notes.txt
+
+💾 Step 6: Stage and Commit the File
+Add and commit your changes:
+git add notes.txt
+git commit -m "Added notes.txt with first line"
+
+🚀 Step 7: Push to GitHub
+Upload your changes to GitHub:
+git push origin main
+
+✏ Step 8: Make Another Change
+Append a second line to your file:
+echo "This is line 2 in notes.txt" >> notes.txt
+
+🔄 Step 9: Commit and Push Again
+Stage, commit, and push the new changes:
+git add notes.txt
+git commit -m "Added second line to notes.txt"
+git push origin main
+
+📤 Step 10: Pull Changes from GitHub
+To get the latest changes from GitHub:
+git pull origin main if wont work (git pull origin master)
