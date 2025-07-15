@@ -1,0 +1,104 @@
+🧪 Experiment No. 2 – Docker Installation and Deployment
+Title:
+Docker Installation, Containerization & Deployment (Windows Version)
+
+Aim:
+To install Docker Desktop on Windows, understand containerization, create Docker containers using OS images, and deploy containerized applications using Docker and Docker Hub.
+
+Introduction:
+Docker is a platform that allows developers to build, ship, and run applications in containers. Containers bundle the application with all its dependencies, ensuring consistency across environments. On Windows, Docker Desktop enables users to run Linux-based containers using the WSL2 backend.
+
+Procedure with Commands, Explanations, and Impact:
+🔹 Step 1: Install Docker Desktop on Windows
+📋 Prerequisites:
+Windows 10/11 64-bit (Pro/Enterprise preferred)
+
+WSL2 enabled
+
+Virtualization enabled in BIOS
+
+📥 Installation Steps:
+Enable WSL2 (via PowerShell as Admin):
+
+powershell
+Copy
+Edit
+dism.exe /online /enable-feature /featurename:Microsoft-Windows-Subsystem-Linux /all /norestart
+dism.exe /online /enable-feature /featurename:VirtualMachinePlatform /all /norestart
+wsl --set-default-version 2
+🔎 Impact: Enables Linux containers to run smoothly on Windows.
+
+Download Docker Desktop:
+👉 https://www.docker.com/products/docker-desktop/
+
+Install Docker Desktop:
+
+Select WSL2 backend during installation.
+
+Restart system if prompted.
+
+Launch Docker Desktop and ensure it says: ✅ "Docker is running"
+
+🔹 Step 2: Verify Docker Installation
+Command (CMD/PowerShell)	Explanation	Impact
+docker --version	Displays Docker version.	Confirms installation.
+docker info	Shows Docker system info.	Verifies config and runtime status.
+
+🔹 Step 3: Pull and Run Docker Images
+Command	Explanation	Impact
+docker pull ubuntu	Downloads Ubuntu image from Docker Hub.	Prepares a base OS image.
+docker run -it ubuntu	Runs an Ubuntu container with terminal access.	Lets you interact with Ubuntu shell.
+
+🔹 Step 4: Manage Docker Containers
+Command	Explanation	Impact
+docker ps	Lists running containers.	Shows active containers.
+docker ps -a	Lists all containers (even stopped ones).	Useful for debugging or cleanup.
+docker stop <container_id>	Stops a container.	Saves resources.
+docker rm <container_id>	Deletes a stopped container.	Cleans up space.
+
+🔹 Step 5: Manage Docker Images
+Command	Explanation	Impact
+docker images	Lists downloaded images.	Shows image inventory.
+docker rmi <image_name>	Removes an image.	Frees disk space.
+
+🔹 Step 6: Create and Dockerize a Flask Application
+📄 app.py
+python
+Copy
+Edit
+from flask import Flask
+app = Flask(__name__)
+
+@app.route("/")
+def home():
+    return "Hello from Docker!"
+
+if __name__ == "__main__":
+    app.run(host="0.0.0.0", port=5000)
+📄 requirements.txt
+nginx
+Copy
+Edit
+flask
+📄 Dockerfile
+Dockerfile
+Copy
+Edit
+FROM python:3.8-slim
+WORKDIR /app
+COPY . .
+RUN pip install -r requirements.txt
+CMD ["python", "app.py"]
+🔹 Step 7: Build and Run the Flask App in Docker
+Command	Explanation	Impact
+docker build -t flask-app .	Builds the image with tag flask-app.	Packages your app.
+docker run -d -p 5000:5000 flask-app	Runs app in background, maps port 5000.	Access at http://localhost:5000
+
+🔹 Step 8: Push Image to Docker Hub
+Command	Explanation	Impact
+docker login	Authenticates to Docker Hub.	Required before pushing images.
+docker tag flask-app your_dockerhub_username/flask-app	Tags your image for upload.	Prepares it for push.
+docker push your_dockerhub_username/flask-app	Uploads to Docker Hub.	Shares app publicly or privately.
+
+✅ Result:
+Docker Desktop was successfully installed on Windows. A simple Flask application was containerized, executed, and deployed locally. The image was then pushed to Docker Hub.

@@ -1,0 +1,179 @@
+✅ Microservices with Docker & Docker Compose
+Project: Flask Web App + MySQL Database
+
+🖥️ Prerequisites (Install These First)
+Docker Desktop
+Download: https://www.docker.com/products/docker-desktop
+
+During installation:
+
+✅ Enable WSL 2 backend
+
+⚙️ Restart your system if prompted
+
+Verify Installation
+Open Command Prompt or PowerShell:
+
+bash
+Copy
+Edit
+docker --version
+docker-compose --version
+✅ You should see versions displayed.
+
+📁 Step-by-Step Procedure
+🔹 Step 1: Understand Microservices
+Microservices are independent modules (e.g., web app, database)
+
+Each runs in its own Docker container
+
+They talk via internal network (like HTTP REST API)
+
+🔹 Step 2: Create Project Structure
+Open terminal (CMD or PowerShell):
+
+bash
+Copy
+Edit
+mkdir microservice-app
+cd microservice-app
+mkdir app db
+Now your folder should look like:
+
+java
+Copy
+Edit
+microservice-app/
+├── app/     ← Flask app
+└── db/      ← Reserved for DB config (not used here)
+🔹 Step 3: Create Flask App
+Create file:
+
+bash
+Copy
+Edit
+microservice-app/app/app.py
+Paste the code (use double underscores __):
+
+python
+Copy
+Edit
+from flask import Flask
+
+app = Flask(__name__)
+
+@app.route('/')
+def home():
+    return "Hello from Microservice App!"
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0', port=5000)
+🔹 Step 4: Add Python Requirements
+Create file:
+
+bash
+Copy
+Edit
+microservice-app/app/requirements.txt
+Add this line:
+
+nginx
+Copy
+Edit
+flask
+🔹 Step 5: Create Dockerfile for Flask App
+Create file:
+
+bash
+Copy
+Edit
+microservice-app/app/Dockerfile
+Paste this:
+
+Dockerfile
+Copy
+Edit
+FROM python:3.9
+
+WORKDIR /app
+COPY requirements.txt .
+RUN pip install -r requirements.txt
+COPY . .
+
+CMD ["python", "app.py"]
+🔹 Step 6: Configure MySQL Database (in Compose only)
+✅ No files in db/ needed
+✅ All DB config will go into docker-compose.yml
+
+🔹 Step 7: Create docker-compose.yml
+Create file:
+
+bash
+Copy
+Edit
+microservice-app/docker-compose.yml
+Paste this:
+
+yaml
+Copy
+Edit
+version: '3'
+services:
+  web:
+    build: ./app
+    ports:
+      - "5000:5000"
+    depends_on:
+      - db
+
+  db:
+    image: mysql:5.7
+    restart: always
+    environment:
+      MYSQL_DATABASE: sampledb
+      MYSQL_USER: user
+      MYSQL_PASSWORD: password
+      MYSQL_ROOT_PASSWORD: rootpass
+    ports:
+      - "3306:3306"
+🔹 Step 8: Build & Run Everything
+Open terminal inside microservice-app/ and run:
+
+bash
+Copy
+Edit
+docker-compose up --build
+✅ This will:
+
+Build the Flask app Docker image
+
+Pull and start a MySQL 5.7 container
+
+Run both containers on the same virtual network
+
+🔹 Step 9: Access the Flask App
+Open your browser and go to:
+
+arduino
+Copy
+Edit
+http://localhost:5000
+✅ You should see:
+
+csharp
+Copy
+Edit
+Hello from Microservice App!
+🔹 Step 10: Stop the Services
+To gracefully stop and clean up:
+
+bash
+Copy
+Edit
+docker-compose down
+✅ This will:
+
+Stop the containers
+
+Free up ports (5000 and 3306)
+
