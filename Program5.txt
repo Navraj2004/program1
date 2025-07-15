@@ -1,0 +1,227 @@
+✅ STEP 0: Install Java JDK 21
+🔧 Choose the Correct Version
+Go to the official Oracle JDK 21 archive:
+👉 https://www.oracle.com/java/technologies/javase/jdk21-archive-downloads.html
+
+🖥️ For Windows 64-bit, choose:
+➡️ Windows x64 Installer (.exe)
+
+Copy
+Edit
+jdk-21_windows-x64_bin.exe
+(Recommended – it automatically sets the path.)
+
+✅ STEP 1: Install Maven
+📦 Download:
+Go to: https://maven.apache.org/download.cgi
+
+Download: ✅ apache-maven-3.9.6-bin.zip
+❌ Don't download:
+
+src.zip
+
+.tar.gz
+
+📁 Extract it:
+Extract the zip file to:
+
+makefile
+Copy
+Edit
+C:\Program Files\Apache\Maven\apache-maven-3.9.6
+
+✅ STEP 2: Set Environment Variables
+⚙️ Open Command Prompt (Run as Administrator)
+Paste and run the following commands one at a time:
+
+bash
+Copy
+Edit
+setx MAVEN_HOME "C:\Program Files\Apache\Maven\apache-maven-3.9.6" /M
+bash
+Copy
+Edit
+setx PATH "%PATH%;C:\Program Files\Apache\Maven\apache-maven-3.9.6\bin" /M
+🔁 Restart Command Prompt
+Close and open it again.
+
+✅ Verify Maven installation:
+bash
+Copy
+Edit
+mvn -v
+You should see:
+
+python-repl
+Copy
+Edit
+Apache Maven 3.9.6
+Java version: 21
+...
+
+✅ STEP 3: Create a Maven Project (with full environment setup)
+🧱 Part 1: Ensure Maven Environment Variables Are Set Correctly
+✅ 1. Set MAVEN_HOME System Variable
+Press Win + S, search: Environment Variables
+
+Click “Edit the system environment variables”
+
+In the System Properties window, click Environment Variables
+
+Under System variables, click New
+
+Variable name: MAVEN_HOME
+
+Variable value:
+
+makefile
+Copy
+Edit
+C:\Program Files\Apache\Maven\apache-maven-3.9.10
+✅ 2. Add Maven to the Path Variable
+In the same Environment Variables window:
+
+Under System variables, find the Path variable → click Edit
+
+Click New and paste:
+
+makefile
+Copy
+Edit
+C:\Program Files\Apache\Maven\apache-maven-3.9.10\bin
+Click OK on all windows to save
+
+🔁 3. Restart Command Prompt
+Close all CMD windows
+
+Open a new one
+
+Check Maven is working:
+
+bash
+Copy
+Edit
+mvn -v
+✅ Expected output:
+
+yaml
+Copy
+Edit
+Apache Maven 3.9.10
+Java version: 21.0.x
+🏗️ Part 2: Create Your First Maven Project
+📍 1. Navigate to a working folder
+Example: Desktop
+
+bash
+Copy
+Edit
+cd %USERPROFILE%\Desktop
+Or D drive:
+
+bash
+Copy
+Edit
+mkdir D:\JavaProjects
+cd D:\JavaProjects
+🛠️ 2. Run this Maven command to generate a new project
+bash
+Copy
+Edit
+mvn archetype:generate -DgroupId=com.example -DartifactId=demo-project -DarchetypeArtifactId=maven-archetype-quickstart -DinteractiveMode=false
+This tells Maven to:
+
+Use the quickstart template
+
+Create a folder called demo-project
+
+Use com.example as the package name
+
+📁 3. Project Structure Created:
+bash
+Copy
+Edit
+demo-project/
+├── pom.xml
+└── src/
+    ├── main/
+    │   └── java/
+    │       └── com/example/App.java
+    └── test/
+        └── java/
+            └── com/example/AppTest.java
+✅ STEP 4: Understand pom.xml and Add a Dependency
+🔍 Go to project folder:
+bash
+Copy
+Edit
+cd demo-project
+🧠 What is pom.xml?
+It is the Project Object Model file. It:
+
+Defines project info
+
+Lists dependencies (like libraries you want to use)
+
+Sets plugins and build configurations
+
+📌 Add a dependency (e.g., Gson for JSON parsing):
+Open pom.xml in a text editor (VS Code or Notepad++), find this section:
+
+xml
+Copy
+Edit
+<dependencies>
+    <!-- Add dependencies here -->
+</dependencies>
+Now paste this inside the <dependencies> tag:
+
+xml
+Copy
+Edit
+<dependency>
+    <groupId>com.google.code.gson</groupId>
+    <artifactId>gson</artifactId>
+    <version>2.10.1</version>
+</dependency>
+Save and close the file.
+
+✅ STEP 5: Build the Project
+In the same terminal where you're inside demo-project folder:
+
+bash
+Copy
+Edit
+mvn compile
+✅ Compiles your source code.
+
+bash
+Copy
+Edit
+mvn test
+✅ Runs unit tests (AppTest.java by default).
+
+bash
+Copy
+Edit
+mvn package
+✅ Packages your project into a .jar file inside target/ folder:
+
+bash
+Copy
+Edit
+target/demo-project-1.0-SNAPSHOT.jar
+✅ STEP 6: Run Your Java App from JAR
+If your App.java has a main() method:
+
+🟢 Run your application:
+bash
+Copy
+Edit
+java -cp target/demo-project-1.0-SNAPSHOT.jar com.example.App
+✅ This runs your program!
+
+
+
+
+
